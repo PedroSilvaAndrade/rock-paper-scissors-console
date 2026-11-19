@@ -4,9 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock, Paper, Scissors!</title>
-    <script src="./javascript.js"></script>
+    <script src="./javascript.js" defer></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="container">
+
+        <div class="buttons-choice">
+            <button id="btn-rock"><img class="img-rock" src="./images/stone.png"></button>
+            <button id="btn-paper"><img class="img-paper" src="./images/paper.png"></button>
+            <button id="btn-scissors"><img class="img-scissors" src="./images/scissors.png"></button>
+        </div>
+
+        <div class="button-play">
+            <button id="btn-play">Play</button>
+        </div>
+    </div>
     
+    <div class="result">
+        <p class="h-choice">Your Choice:</p>
+        <p class="c-choice">PC Choice:</p>
+        <p class="placar">a</p>
+    </div>
+            
+
 </body>
 </html>

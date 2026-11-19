@@ -1,5 +1,6 @@
 let humanScore = 0;
 let computerScore = 0;
+let humanChoice = "";
 
 function getComputerChoice() {
   const variable = Math.floor(Math.random() * 3);
@@ -13,7 +14,6 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-  const humanChoice = prompt("Make your choice, Rock, Paper or Scissors?").toLowerCase();
   if (humanChoice === "rock") {
     return 0;
   } else if (humanChoice === "paper") {
@@ -46,7 +46,6 @@ function playRound(humanChoice, compChoice) {
 }
 
 function playGame() {
-  while (humanScore < 5 && computerScore < 5) {
     const result = playRound(getHumanChoice(), getComputerChoice());
     console.log(result);
 
@@ -57,13 +56,27 @@ function playGame() {
     }
 
     console.log("You: " + humanScore + " | Computer: " + computerScore);
-  }
+
 
   if (humanScore === 5) {
     console.log("You Won The Match.");
-  } else {
+  } else if (computerScore === 5) {
     console.log("You Lost The Match.");
   }
 }
 
-playGame();
+const txtHumanChoice = document.querySelector(".h-choice")
+
+const btnRock = document.querySelector("#btn-rock");
+const btnPaper = document.querySelector("#btn-paper");
+const btnScissors = document.querySelector("#btn-scissors")
+
+btnRock.onclick = () => { humanChoice = "ㅤRock"; txtHumanChoice.textContent = "Your Choice: " + humanChoice;}
+btnPaper.onclick = () => { humanChoice = "ㅤPaper"; txtHumanChoice.textContent = "Your Choice: " + humanChoice;}
+btnScissors.onclick = () => { humanChoice = "ㅤScissors"; txtHumanChoice.textContent = "Your Choice: " + humanChoice;}
+
+const btnPlay = document.querySelector("#btn-play")
+btnPlay.onclick = () => {playGame; let c = document.querySelector(".c-choice"); c.textContent = "PC Choice: " + "ㅤㅤㅤ" + getComputerChoice();}
+
+
+
