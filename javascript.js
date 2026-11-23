@@ -2,81 +2,70 @@ let humanScore = 0;
 let computerScore = 0;
 let humanChoice = "";
 
-function getComputerChoice() {
-  const variable = Math.floor(Math.random() * 3);
-  if (variable === 0) {
-    return "Rock";
-  } else if (variable === 1) {
-    return "Scissors";
-  } else {
-    return "Paper";
-  }
-}
+const frases = ["You Win.", "You Lost.", "Draw.", "You Won the Match.", "You Lost the Match."];
 
-function getHumanChoice() {
-  if (humanChoice === "rock") {
-    return 0;
-  } else if (humanChoice === "paper") {
-    return 1;
-  } else {
-    return 2;
-  }
+const txtHumanChoice = document.querySelector(".h-choice");
+const txtCompChoice = document.querySelector(".c-choice");
+const txtPlacar = document.querySelector(".placar");
+
+function getComputerChoice() {
+  const opcoes = ["ㅤRock", "Paper", "Scissors"];
+  return opcoes[Math.floor(Math.random() * 3)];
 }
 
 function playRound(humanChoice, compChoice) {
-  if (humanChoice === 0 && compChoice === "Rock") {
-    return "Draw.";
-  } else if (humanChoice === 0 && compChoice === "Scissors") {
-    return "You Win.";
-  } else if (humanChoice === 0 && compChoice === "Paper") {
-    return "You Lost.";
-  } else if (humanChoice === 1 && compChoice === "Rock") {
-    return "You Win.";
-  } else if (humanChoice === 1 && compChoice === "Scissors") {
-    return "You Lost.";
-  } else if (humanChoice === 1 && compChoice === "Paper") {
-    return "Draw.";
-  } else if (humanChoice === 2 && compChoice === "Rock") {
-    return "You Lost.";
-  } else if (humanChoice === 2 && compChoice === "Scissors") {
-    return "Draw.";
-  } else if (humanChoice === 2 && compChoice === "Paper") {
-    return "You Win.";
+  if (humanChoice === compChoice) {
+    return frases[2];
   }
+
+  if (
+    (humanChoice === "Rock" && compChoice === "Scissors") ||
+    (humanChoice === "Paper" && compChoice === "ㅤRock") ||
+    (humanChoice === "Scissors" && compChoice === "Paper")
+  ) {
+    return frases[0];
+  }
+
+  return frases[1];
 }
 
 function playGame() {
-    const result = playRound(getHumanChoice(), getComputerChoice());
-    console.log(result);
+  if (humanChoice === "") {
+    txtPlacar.textContent = "Choose Rock, Paper or Scissors first.";
+    return;
+  }
 
-    if (result === "You Win.") {
-      humanScore++;
-    } else if (result === "You Lost.") {
-      computerScore++;
-    }
+  const compChoice = getComputerChoice();
+  const result = playRound(humanChoice, compChoice);
 
-    console.log("You: " + humanScore + " | Computer: " + computerScore);
+  txtCompChoice.textContent = "PC Choice: " + compChoice;
 
+  if (result === frases[0]) {
+    humanScore++;
+  } else if (result === frases[1]) {
+    computerScore++;
+  }
+
+  txtPlacar.textContent = result + "  |  You " + humanScore + " x " + computerScore + " PC";
 
   if (humanScore === 5) {
-    console.log("You Won The Match.");
+    txtPlacar.textContent = frases[3] + "  (" + humanScore + " x " + computerScore + ")";
+    humanScore = 0;
+    computerScore = 0;
   } else if (computerScore === 5) {
-    console.log("You Lost The Match.");
+    txtPlacar.textContent = frases[4] + "  (" + humanScore + " x " + computerScore + ")";
+    humanScore = 0;
+    computerScore = 0;
   }
 }
 
-const txtHumanChoice = document.querySelector(".h-choice")
+function escolher(opcao) {
+  humanChoice = opcao;
+  txtHumanChoice.textContent = "Your Choice: " + humanChoice;
+}
 
-const btnRock = document.querySelector("#btn-rock");
-const btnPaper = document.querySelector("#btn-paper");
-const btnScissors = document.querySelector("#btn-scissors")
+document.querySelector("#btn-rock").onclick = () => escolher("ㅤRock");
+document.querySelector("#btn-paper").onclick = () => escolher("Paper");
+document.querySelector("#btn-scissors").onclick = () => escolher("Scissors");
 
-btnRock.onclick = () => { humanChoice = "ㅤRock"; txtHumanChoice.textContent = "Your Choice: " + humanChoice;}
-btnPaper.onclick = () => { humanChoice = "ㅤPaper"; txtHumanChoice.textContent = "Your Choice: " + humanChoice;}
-btnScissors.onclick = () => { humanChoice = "ㅤScissors"; txtHumanChoice.textContent = "Your Choice: " + humanChoice;}
-
-const btnPlay = document.querySelector("#btn-play")
-btnPlay.onclick = () => {playGame; let c = document.querySelector(".c-choice"); c.textContent = "PC Choice: " + "ㅤㅤㅤ" + getComputerChoice();}
-
-
-
+document.querySelector("#btn-play").addEventListener("click", playGame);
